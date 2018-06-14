@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #view {
+            width: 200px;
+            height: 200px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#/home">按钮1</a><a href="#/cart">按钮2</a>
+    <div id="view"></div>
+
+    <script>
+        var links = document.querySelectorAll('a')
+        var view = document.querySelector('#view')
+        for (var i = 0; i < links.length; i++) {
+            links[i].onclick = function() {
+            	//异步解决获取与点击不同步问题
+                setTimeout(function() {
+	                /*window.location.hash这个属性可读可写。
+	                 读取时,可以用来判断网页状态是否改变；
+	                 写入时,则会在不重载网页的前提下,创造一条访问历史记录。*/
+                    var hash = window.location.hash.slice(1)
+                    console.log(hash)
+                    switch (hash) {
+                        case '/home':
+                            var ajax = new XMLHttpRequest()
+                            ajax.open('get', './views/home.html', true)
+                            ajax.send()
+                            ajax.onload = function(data) {
+                                view.innerHTML = ajax.responseText
+                            }
+                            break;
+                        case '/cart':
+                            var ajax = new XMLHttpRequest()
+                            ajax.open('get', './views/cart.html', true)
+                            ajax.send()
+                            ajax.onload = function(data) {
+                                view.innerHTML = ajax.responseText
+                            }
+                            break;
+                    }
+                }, 0)
+
+            }
+        }
+        
+        
+        //#代表网页中的一个位置。其右面的字符,就是该位置的标识符
+	    //#是用来指导浏览器动作的,HTTP请求中不包括#
+	    //改变#后的部分，浏览器只会滚动到相应位置，不会重新加载网页
+	    //改变#会改变浏览器的访问历史,每一次改变#后的部分，都会在浏览器的访问历史中增加一个记录
+
+
+
+        /* 前端路由(单页面应用), 点击超链接实现页面切换效果,通过hash属性获取地址栏的"#"后的内容,
+        根据hash值利用ajax异步请求相应位置的数据显示到当前页面,使得视觉效果上感觉像是在刷新页面实现页面跳转,实际上并没有重载页面,不需要跟服务器频繁的进行交互*/
+    </script>
+</body>
+
+</html>

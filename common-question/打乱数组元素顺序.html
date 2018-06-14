@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+
+<div>
+</div>
+
+</body>
+
+<script>
+	/*  打乱数组中元素顺序  */
+	
+	
+	
+	/*//方法一
+	var arr = [1, 3, 5, 7, 9, 11, 13, 19]
+	function shuffle(array) {
+		var tmp, currentIndex, top = array.length
+		//1~7
+		while (--top) {
+			// 生成一个数组的随机下标
+			// 0~6
+			currentIndex = Math.floor(Math.random() * top)
+			tmp = array[currentIndex]
+			array[currentIndex] = array[top]
+			array[top] = tmp
+		}
+		console.log(top)   // 0
+		return array
+	}
+	console.log(shuffle(arr))*/
+	
+	
+	
+	//方法二
+	function shuffle(arr) {
+		console.log(arr.sort(() => Math.random() > 0.5 ? 1 : -1))
+	}
+	shuffle([1, 3, 5, 7, 9, 11, 13, 19])
+</script>
+</html>

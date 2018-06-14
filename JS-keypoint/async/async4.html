@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+//回调函数写法
+  /*function foo(a, b, cb) {
+    setTimeout(function () {
+      cb(a + b)
+    }, 2000)
+  }
+  foo(1, 2, function (result) {
+    console.log(result)
+    if (result > 2) {
+      foo(result, 2, function (result) {
+        console.log(result)
+        if (result > 4) {
+          foo(result, 3, function (result) {
+            console.log(result)
+          })
+        }
+      })
+    }
+  })*/
+
+
+//async写法
+function foo(a, b) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(() => {
+      resolve(a + b)
+    }, 2000)
+  })
+}
+
+var fn = async function () {
+  var result = await foo(1, 2)
+  console.log(result)
+  var result = result > 2 ? await foo(result, 2) : result
+  console.log(result)
+  var result = result > 4 ? await foo(result, 3) : result
+  console.log(result)
+}
+
+fn()
+
+
+
+//2秒后输出
+//3
+//2秒后输出
+//5
+//2秒后输出
+//8
+</script>
+</html>

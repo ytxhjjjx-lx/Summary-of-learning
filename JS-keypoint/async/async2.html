@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+
+function sleep(time) {
+  console.log('sleep')
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve()
+    }, time)
+  })
+}
+
+var start = function () {
+  console.log('start')
+  sleep(2000)
+    .then(function () {
+      console.log('sleep-time')
+    })
+  console.log('end')
+}
+start()
+
+
+//start
+//sleep
+//end
+//2秒后输出
+//sleep-time
+</script>
+</html>

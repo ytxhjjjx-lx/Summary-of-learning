@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>箭头函数使用对数组进行多重排序</title>
+</head>
+<body>
+
+<div>
+</div>
+
+</body>
+
+<script>
+	
+	var arr = [
+		{age: 20, name: "c"},
+		{age: 20, name: "b"},
+		{age: 40, name: "a"},
+		{age: 10, name: "a"},
+		{age: 14, name: "d"}
+	];
+	/*arr.sort((a, b) => {
+		if (a.age === b.age) {
+			//localeCompare比较字符串的方法，考虑了默认的本地排序规则,ECMAscript 标准规定采用底层操作系统的排序规则。
+			return a.name.localeCompare(b.name)
+		} else {
+			return a.age - b.age
+		}
+	})*/
+	arr.sort((a, b) => (a.age - b.age) || a.name.localeCompare(b.name))
+	console.log(arr)
+	
+	
+</script>
+</html>

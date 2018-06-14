@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>拖放上传文件</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		
+		div {
+			height: 400px;
+			background-color: lightgray;
+			font-size: 20px;
+			padding-left: 50px;
+		}
+	</style>
+</head>
+<body>
+
+<div id="dropArea">请拖拽文件到此区域</div>
+<img src="" alt="">
+
+</body>
+
+<script>
+	let dropArea = document.querySelector('#dropArea')
+	let image = document.querySelector('img')
+	document.addEventListener('dragenter', function (e) {
+		e.preventDefault()
+		if (e.target.id === 'dropArea') {
+			dropArea.style.backgroundColor = 'pink'
+			dropArea.innerHTML = '请在此处释放文件'
+		}
+	})
+	document.addEventListener('dragleave', function (e) {
+		e.preventDefault()
+		dropArea.style.backgroundColor = 'lightgray'
+		dropArea.innerHTML = '请拖拽文件到此区域'
+	})
+	document.addEventListener('dragover', function (e) {
+		e.preventDefault()
+	})
+	document.addEventListener('drop', function (e) {
+		// 阻止放入的默认行为(会在当前页面再次打开文件)
+		e.preventDefault()
+		if (e.target.id !== 'dropArea') return;
+		dropArea.style.backgroundColor = 'lightgray'
+		let file = e.dataTransfer.files[0]
+		console.log(e.dataTransfer)
+		let reader = new FileReader()
+		if (file.type.startsWith('text')) {
+			reader.readAsText(file, "UTF-8")
+			reader.onload = function () {
+				dropArea.innerHTML = reader.result
+			}
+		}
+		if (file.type.startsWith('image')) {
+			reader.readAsDataURL(file)
+			reader.onload = function () {
+				image.src = reader.result
+			}
+		}
+	})
+</script>
+</html>

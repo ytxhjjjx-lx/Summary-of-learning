@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+function sleep(time) {
+  console.log('sleep')
+  return new Promise(function (resolve, reject) {
+
+    setTimeout(function () {
+      resolve('ok')
+    }, time)
+  })
+}
+// async声明这个函数内部会有一些异步操作
+var start = async function () {
+  // await等待这个异步的完成
+  // await外面必须有async函数
+  let result = await sleep(2000)
+  console.log(result)
+  await sleep(3000)
+  // 这里就是异步请求完成之后要执行的内容
+  // 在这里使用起来就像同步代码那样直观
+  console.log('sleep-time')
+}
+console.log('start')
+start()
+console.log('end')
+
+
+
+//start
+//sleep
+//end
+//2秒后输出
+//ok
+//sleep
+//3秒后输出
+//sleep-time
+</script>
+</html>
