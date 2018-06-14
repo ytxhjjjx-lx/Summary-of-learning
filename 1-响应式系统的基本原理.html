@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script type="text/javascript">
+  function cb(val) {
+    // 渲染视图
+    console.log('视图更新啦');
+  }
+  function defineReactive(obj, key, val) {
+    Object.defineProperty(obj, key, {
+      // 属性可枚举
+      enumerable: true,
+      // 属性可被修改或删除
+      configurable: true,
+      // 获取属性的方法
+      get: function reactiveGetter() {
+        // 依赖收集
+        return val;
+      },
+      // 设置属性的方法
+      set: function reactiveSetter(newVal) {
+        if (newVal === val) return;
+        cb(newVal);
+      }
+    })
+  }
+  function observer(value) {
+    // 判断value不为false(0,NaN, '', null, undefined)
+    // 类型必须为object
+    if (!value || (typeof value !== 'object')) {
+      return;
+    }
+    // 通过keys提取value中的键名并遍历,然后传入defineReactive中
+    // 当然这里应该是要递归的，为了方便阅读理解就假定对象只有一层
+    Object.keys(value).forEach((key) => {
+      defineReactive(value, key, value[key]);
+    })
+  }
+
+  class Vue {
+    // Vue的构造类
+    constructor (options) {
+      // vue的data实际上是一个函数，这里当作一个对象来简单处理
+      this._data = options.data;
+      observer(this._data);
+    }
+  }
+</script>
+<script>
+  let o = new Vue({
+    data: {
+      name: 'tangcaiye'
+    }
+  });
+  document.onclick = function () {
+    o._data.name = 'caiwei';
+  }
+</script>
+</html>
