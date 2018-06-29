@@ -214,9 +214,9 @@ xml_parser_free($parser);
 
 
 expat解析器将该xml文件解析成三个事件：
-
-<name>李响</name>
-
+```xml
+  <name>李响</name>
+```
 开始元素： name
 
 cdata:   李响
