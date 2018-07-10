@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+      /* 
+        方法四：利用弹性布局，操作父容器,适用于子元素宽度未知情况
+      */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+		}
+		#outer {
+			width: 300px;
+			height: 400px;
+			background-color: #0ff;
+      /* 
+        方法一：
+            操作子元素，根据屏幕宽度一半减去元素宽度一半实现居中,上下居中同理
+        距离父元素左边框的宽度为父元素宽度50% 
+        向左偏移自身宽度的50%，虽然效果为居中，但控制台查看仍然为left: 50%,
+        适用于子元素宽度未知情况
+
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      */
+
+      /* 
+        方法二：操作子元素,这里相对于整个浏览器,相对父元素则只能用absolute, 适用于子元素宽度未知情况
+
+        position: fixed/absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      */
+
+      /* 
+        方法三：操作子元素，根据屏幕宽度一半减去元素宽度一半(调整左边距为元素自身宽度一半)实现居中,
+        上下居中同理, 适用于子元素宽高已知情况
+
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -150px;
+        margin-top: -200px;
+      */
+		}
+	</style>
+</head>
+<body>
+	<div id="outer">
+		
+	</div>
+</body>
+</html>
