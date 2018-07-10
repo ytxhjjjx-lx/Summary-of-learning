@@ -45,7 +45,7 @@
 		var touch = e.changedTouches[0]
 		var currentX = touch.clientX
 		var currentY = touch.clientY
-		//每次结束拖拽后,记录之前拖拽的位移
+		//每次结束拖拽后,记录当前的位置
 		endX += currentX - startX
 		endY += currentY - startY
 	})
