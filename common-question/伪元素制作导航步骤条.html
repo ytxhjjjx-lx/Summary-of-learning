@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		div {
+			width: 700px;
+			margin: 50px auto;
+		}
+		span {
+			float: left;
+			position: relative;
+			width: 150px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			margin-right: 10px;
+			background-color: #e4e4e4;
+		}
+		span:first-child {
+			background-color: #c10003;
+		}
+		/* 第一个span只有::after, 最后一个span只有::before */
+		span:not(:last-child)::after, span:not(:first-child)::before {
+			content: '';
+			position: absolute;
+			border-top: 15px solid transparent;
+			border-bottom: 15px solid transparent;
+			border-right: 25px solid transparent;
+		}
+		span:not(:last-child)::after {
+			border-left: 25px solid #e4e4e4;	
+			right: -50px;
+			z-index: 2;
+		}
+		span:first-child::after {
+			border-left: 25px solid #c10003;
+		}
+		span:not(:first-child)::before {
+			border-left: 25px solid #fff;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<span>第一步</span>
+		<span>第二步</span>
+		<span>第三步</span>
+		<span>第四步</span>
+	</div>
+</body>
+</html>
