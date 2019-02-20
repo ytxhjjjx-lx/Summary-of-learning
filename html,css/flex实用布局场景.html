@@ -26,6 +26,21 @@
 			display: flex;
 			margin-bottom: 30px;
 		}
+		.demo .content {
+			display: flex;
+			flex: 1;
+			flex-direction: column;
+			justify-content: space-between;
+			padding: 5px;
+			border: 1px solid #0ff;
+			margin-right: 10px;
+		}
+		.demo .right {
+			border: 1px solid #f0f;
+			display: flex;
+			flex-direction: column-reverse;
+			justify-content: space-between;
+		}
 		.demo1 {
 			border: 1px solid #ff0;
 			display: flex;
@@ -34,14 +49,6 @@
 		}
 		.demo1 div { 
 			flex: 1;
-		}
-		.content {
-			display: flex;
-			flex: 1;
-			flex-direction: column;
-			justify-content: space-between;
-			padding: 5px;
-			border: 1px solid #0ff;
 		}
 		.p1 {
 			/* 
@@ -75,16 +82,36 @@
 		<div class="demo">
 			<div class="img" style="border: 1px solid #f00; width: 80px; height: 80px;margin-right: 20px;">
 				这里图片</div>
-			<!-- 最小高度为div.img高度 -->
+			<!-- 默认高度为80 -->
 			<div class="content">
-				<p style="margin-bottom: 10px;line-height: 20px;">
+				<p style="margin-bottom: 10px;">
 					标题这里是标题标题
 				</p>
 				<p>这里是时间</p>
 			</div>
+			<div class="right">
+				<p>价格</p>
+				<p>课时</p>
+			</div>
+		</div>
+
+		<div class="demo">
+			<div class="img" style="border: 1px solid #f00; width: 80px; height: 80px;margin-right: 20px;">
+				这里图片</div>
+			<!-- 默认高度为80 -->
+			<div class="content">
+				<p style="margin-bottom: 10px;">
+					标题这里是标题标题
+				</p>
+				<p>这里是时间</p>
+			</div>
+			<div class="right">
+				<p>价格</p>
+			</div>
 		</div>
 
 		<div class="demo1">
+			<!-- 占据全部空间 -->
 			<div style="background-color: red;"></div>
 			<!-- <div style="background-color: blue;"></div> -->
 		</div>
