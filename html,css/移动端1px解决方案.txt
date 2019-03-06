@@ -1,0 +1,66 @@
+（一）移动端1px实现
+CSS设置的1px的边框实际会比实际显示效果(Retina 屏)粗
+原因：
+css中的1px并不等于移动设备的1px，这些由于不同的手机有不同的像素密度
+window.devicePixelRatio属性，可以反应css中的像素与设备的像素比
+
+
+完美的解决方案（满足所有场景）:
+1.viewport + rem 实现（老项目修改代价过大，只适用于新项目）
+这种方式可以直接写1px
+2.伪类 + transform 实现（vux这个ui库就是使用这个方法）,
+支持圆角(使用时伪类和本体类都需要加border-radius)
+.border-1px{
+  position: relative;
+  border:none;
+}
+.border-1px:before{
+  content: '';
+  background: #000;
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+3.box-shadow模拟边框(颜色不好控制)
+
+
+一般解决方案：
+1.多背景渐变实现（圆角没法实现
+多背景图片有兼容性问题）
+利用渐变 linear-gradient   (50%有颜色，50%透明)
+2.background-image实现（修改颜色麻烦, 需要替换图片
+圆角需要特殊处理，并且边缘会模糊）
+.background-image-1px {
+  background: url(../img/line.png) repeat-x left bottom;
+  -webkit-background-size: 100% 1px;
+  background-size: 100% 1px;
+}
+3.0.5px实现：
+无法兼容安卓设备、 iOS 8 以下设备
+通过 JavaScript 检测浏览器能否处理0.5px的边框，如果可以，给html标签元素添加个class
+if (window.devicePixelRatio && devicePixelRatio >= 2) {
+  var testElem = document.createElement('div');
+  testElem.style.border = '.5px solid transparent';
+  document.body.appendChild(testElem);
+}
+if (testElem.offsetHeight == 1) {
+  document.querySelector('html').classList.add('hairlines');
+}
+
+div {
+  border: 1px solid #bbb;
+}
+.hairlines div {
+  border-width: 0.5px;
+}
+4.border-image实现（修改颜色麻烦, 需要替换图片
+圆角需要特殊处理，并且边缘会模糊）
+
+
+参考：
+手淘h5页面终端适配(https://github.com/amfe/article/issues/17)
