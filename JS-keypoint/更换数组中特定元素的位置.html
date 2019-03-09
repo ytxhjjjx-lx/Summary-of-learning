@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>变换数组中特定元素的位置</title>
+</head>
+
+<body>
+	
+</body>
+<script>
+	let arr = [
+  {
+    type: '1',
+    title: 'Apple',
+    time: '2019-03-09 17:34:49'
+  },
+  {
+    type: '1',
+    title: 'Banana',
+    time: '2019-03-09 17:34:33'
+  },
+  {
+    type: '2',
+    title: 'Carrot',
+    time: '2019-03-09 17:34:40'
+  },
+  {
+    type: '1',
+    title: 'Mango',
+    time: '2019-03-09 17:34:44'
+  },
+  {
+    type: '2',
+    title: 'peach',
+    time: '2019-03-09 17:34:38'
+  },
+  {
+    type: '1',
+    title: 'Strawberry',
+    time: '2019-03-09 17:34:45'
+  },
+];
+
+// 变换数组中type为2的元素至特定位置,其余元素按时间倒叙排序
+function resetArr(arr, position='start') {
+  let newArr = arr.filter(item => {
+    return item.type == '2'
+  })
+
+  for (let i=0; i<newArr.length; i++) {
+    let index = arr.indexOf(newArr[i]);
+    arr.splice(index, 1);
+  }
+  
+  orderByTime(newArr)
+  orderByTime(arr)
+
+  switch(position) {
+    case 0:
+    case 'start': 
+      let n = 0 
+      for (let i=0; i<newArr.length; i++) {
+        arr.splice(n, 0, newArr[i]);
+        n++;
+      }
+      return arr;
+      // return newArr.concat(arr);
+    break;
+    case arr.length:
+    case 'end': 
+      return arr.concat(newArr);
+    break;
+    default :
+      for (let i=0; i<newArr.length; i++) {
+        //.splice方式返回被修改的内容
+        arr.splice(position, 0, newArr[i]);
+        position++;
+      }
+      return arr;
+  }
+}
+
+//按时间倒叙排序
+function orderByTime (arr) {
+  arr.sort((a, b) => {
+    return b.time > a.time
+  })
+}
+
+//头部插入
+console.log(resetArr(arr, 0));
+//尾部插入
+console.log(resetArr(arr, 6));
+//任意位置插入
+console.log(resetArr(arr, 3));
+</script>
+</html>
