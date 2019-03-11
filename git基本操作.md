@@ -170,7 +170,7 @@ git push origin master
 
 这里有个坑需要注意一下，就是在创建远程仓库的时候，如果你勾选了Initialize this repository with a README（就是创建仓库的时候自动给你创建一个README文件），那么到了将本地仓库内容推送到远程仓库的时候就会报一个failed to push some refs to https://github.com/guyibang/TEST2.git的错,
 
-可以执行如下命令将内容合并(如果每次提交之前在远程仓库中手动添加了文件，则需要执行此命令,相当于svn的update，更新本地代码)
+可以执行如下命令将内容合并(如果每次提交远程仓库有变更，则需要执行此命令,相当于svn的update，更新本地代码)
 
 ```
 git pull --rebase origin master
@@ -188,3 +188,11 @@ git clone 远程仓库的url filename(生成的文件夹的名称)
 ###### 在本地下载远程仓库
 ![image](https://i.loli.net/2017/11/22/5a1554c625454.png)
 ![image](https://i.loli.net/2017/11/22/5a1555894703b.png)
+
+
+###### 5.变更远程仓库地址
+git remote set-url [--push] <name> <newurl> [<oldurl>]
+or: git remote set-url --add <name> <newurl>
+or: git remote set-url --delete <name> <url>
+  
+eg: git remote set-url origin 远程仓库url
