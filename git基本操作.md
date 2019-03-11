@@ -190,9 +190,9 @@ git clone 远程仓库的url filename(生成的文件夹的名称)
 ![image](https://i.loli.net/2017/11/22/5a1555894703b.png)
 
 
-###### 5.变更远程仓库地址
-git remote set-url [--push] <name> <newurl> [<oldurl>]
-or: git remote set-url --add <name> <newurl>
-or: git remote set-url --delete <name> <url>
+#### 5.变更远程仓库地址
+git remote set-url [--push] name newurl [oldurl] <br>
+or: git remote set-url --add name newurl <br>
+or: git remote set-url --delete name url <br>
   
 eg: git remote set-url origin 远程仓库url
