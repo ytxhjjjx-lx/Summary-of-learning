@@ -83,8 +83,20 @@ JQuery的使用也是如此。一般使用下面的入口来完成。
 
 ##2.3	onload和JQuery中ready方法的区别
 
-1. 执行时机：onload事件必须等页面完全加载完毕后才能执行；ready当页面节点加载完毕后就可以执行。比onload要早一点
+1. 执行时机：页面加载完成有两种事件：
+
+   一是ready，表示文档结构已经加载完成（不包含图片等非文字媒体文件）；
+
+   二是onload，指示页面包含图片等文件在内的所有元素都加载完成。
+
+   一般情况一个页面响应加载的顺序是，域名解析-加载html-加载js和css-加载图片等其他信息。Dom Ready，的作用或者意义就是:在DOM加载完成后就可以可以对DOM进行操作。Dom Load，他的作用或者意义就是：在document文档加载完成后就可以对DOM进行操作，document文档包括了加载图片等其他信息。
+
+   Dom Ready应该在“加载js和css”和“加载图片等其他信息”之间，就可以操作Dom了。
+
+   Dom Load就是在页面响应加载的顺序中的“加载图片等其他信息”之后，就可以操作Dom了。
+
 2. 添加个数：onload事件只能添加一个，如果添加了多个，则最后执行的onload事件会覆盖前边的事件;ready事件可以添加多个，且互相之间不会覆盖。（onload事件和ready时间之间也不会互相覆盖）
+
 3. 简化写法：onload没有简化写法；ready事件可以简化为:`$(function(){})`;
 
 
@@ -339,6 +351,8 @@ $(function() {
 		console.log($(":header"));
 		//获取当前取得焦点的元素
 		console.log($(":focus"));
+  		//获取当前不可用的元素
+		console.log($(":disabled"));
 	})
 </script>
 ```
@@ -363,6 +377,8 @@ $(function() {
 		console.log($("div:has(.item2)"))
 		// 选取有文本或子元素的所有元素。  也就是能当爹的元素
 		console.log($(":parent"));
+  // 选取文档的根元素html
+		console.log($(":root"));
 	})
 </script>
 ```
@@ -374,7 +390,7 @@ $(function() {
 | 选择器      | 描述                                       |
 | -------- | ---------------------------------------- |
 | :hidden  | 选取所有不可见的元素。包括input的type属性为hidden，display属性为none(位置丢失)。 |
-| :visible | 选取所有可见的元素。如果一个元素的visibility是hidden(位置保留)也会被选中。 |
+| :visible | 选取所有可见的元素。**如果一个元素的visibility是hidden(位置保留)也会被选中。** |
 
 ```javascript
 <script type="text/javascript">

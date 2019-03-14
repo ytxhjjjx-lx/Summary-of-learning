@@ -349,7 +349,7 @@ $("#content").load("html_data.html  h1,#p");
 ​	load方法的最后一个参数是回调函数，当请求完成后总会回调这个函数，不管请求是否成功。
 
 ```javascript
-$("#content").load("html_data.html  h1,#p", function function_name (response,status,s) {
+$("#content").load("html_data.html  h1,#p", function function_name (response,status,xhr) {
     //response - 包含来自请求的结果数据
     //status - 包含请求的状态（"success", "notmodified", "error", "timeout" 或 "parsererror"）
     //xhr - 包含 XMLHttpRequest 对象
