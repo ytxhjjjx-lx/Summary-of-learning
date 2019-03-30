@@ -55,8 +55,7 @@ branch_1分支上的提交完成，把master指向最新的提交（即branch_1�
 </p>
 
 
-
-**下面为实际操作**：
+**下面为实际操作**： Fast-forward 模式
 
 ```shell
 创建并切换分支
@@ -92,6 +91,56 @@ $ git branch
 * master
   
 ```
+
+**--no-ff模式**：
+
+fast-forward模式合并后，删除分支会丢掉分支提交信息，--no-ff模式表示禁用`Fast forward`模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支提交信息
+
+```powershell
+...前几步同上
+
+把dev分支的工作成果合并到master分支上
+$ git merge --no-ff -m 'merge with no-ff' dev  (本次合并要创建一个新的commit，加上-m参数，把commit描述写进去)
+ Merge made by the 'recursive' strategy.
+ test.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+删除dev分支
+$ git branch -d dev
+Deleted branch dev (was ...)
+
+查看历史git log
+$ git log --graph --pretty=oneline --abbrev-commit
+*   547f605 (HEAD -> master, origin/master, origin/HEAD) merge with no-ff
+|\
+| * 6953abd update file in branch dev  (可以看到分支信息)
+|/
+*   de8ecfe fix conflict and commit
+|\
+| * 46ff6f2 update in branch branch_2
+* | 65ed5c2 update in master
+|/
+*   81cc733 fix conflict and commit
+|\
+| * 6331f76 update file in branch_2
+* | 74438dc update in branch master
+|/
+* 93ce32a 添加test.txt文件
+* d398d67 Initial commit
+
+
+查看新的分支结构
+$ git branch
+* master
+```
+
+这种模式合并后如下图：
+
+<p align="center">
+    <br/>
+    <img src="./git-img/branch8.png">
+    <br/>
+</p>
 
 
 
@@ -246,5 +295,29 @@ Deleted branch branch_2 (was 46ff6f2).
 
 
 
-#### 分支管理策略
+#### 3. 多人协作
+
+多人协作的工作模式通常是这样：
+
+1. 首先，可以试图用`git push origin <branch-name>`推送自己的修改；
+
+2. 如果推送失败，则因为远程分支比你的本地更新，需要先用`git pull`抓取远程最新的提交；
+
+    如果`git pull`提示`There is no tracking information for the current branch.
+    Please specify which branch you want to merge with.`则说明本地分支和远程分支的链接关系没有创建，用命令`git branch --set-upstream-to <branch-name> origin/<branch-name>`来创建连接。
+
+3. 如果合并有冲突，则解决冲突(类似于上面的方式进行修改)，并在本地提交；
+
+4. 没有冲突或者解决掉冲突后，再用`git push origin <branch-name>`推送就能成功！
+
+#### 小结：
+
+1. 查看远程库信息，使用`git remote  ` / `git remote -v` (显示更详细的信息,包括可以抓取和推送的origin地址)；
+2. 本地新建的分支如果不推送到远程，对其他人就是不可见的；
+3. 从本地推送分支，使用`git push origin branch-name`，如果推送失败，先用`git pull`抓取远程的新提交；
+4. 在本地创建和远程分支对应的分支(创建完成会互相关联)，使用`git checkout -b branch-name origin/branch-name`，本地和远程分支的名称最好一致；
+5. 建立本地已有的分支和远程分支的关联，使用`git branch --set-upstream branch-name origin/branch-name`；
+6. 从远程抓取分支，使用`git pull`，如果有冲突，要先处理冲突。
+
+#### 
 
