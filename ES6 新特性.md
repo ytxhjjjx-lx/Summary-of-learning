@@ -1727,9 +1727,9 @@ console.log(iterator.next());           // "{ value: undefined, done: true }"
 
 
 	默认情况下只有     数组、类似数组的对象（比如arguments对象、DOM NodeList 对象）、set、Map和字符串     才可以使用迭代器去迭代。   (也就可以使用for...of了)
-
+	
 	可以使用for...in类型  :	数组(下标),   字符串(下标),  对象(属性名)
-
+	
 	可以使用forEach类型  :	数组(索引, 元素值),   set(key,value相等),   map(参数1：键值对的value, 参数2：键值对的key)
 
 
@@ -1903,6 +1903,45 @@ console.log(person instanceof Object);          // true
 
 console.log(typeof PersonClass);                    // "function"
 console.log(typeof PersonClass.prototype.sayName);  // "function"
+
+
+instanceof 和 typeof 区别:
+var arr = new Array(1, 3, 4)
+var arr2 = [1,3,4]
+var str = new String('dafdsf')
+var str2 = 'csafcdf'
+function foo() {
+    
+}
+//class关键字必须是小写。   后面就是跟的类名
+class PersonClass {
+    // 等效于 PersonClass 构造函数。constructor中添加属性
+    constructor(name) { 
+        this.name = name;  
+    } 
+    // 等效于 PersonClass.prototype.sayName. 方法直接在类中定义 
+    sayName() {
+        console.log(this.name);
+    }
+}
+
+instanceof:判断一个变量是否是某个对象的实例,返回bol值
+用构造函数创建的对象返回true，否则返回false, 数组例外都会返回true 
+console.log(str instanceof String) //true
+console.log(str2 instanceof String) //false 
+console.log(arr instanceof Array) //true 
+console.log(arr2 instanceof Array) //true
+
+typeof:判断一个变量的类型，返回一个字符串, 数组例外都会返回object
+console.log(typeof str) //'object'
+console.log(typeof str2) //'string' 
+console.log(typeof arr) //'object' 
+console.log(typeof arr2) //'object'
+
+console.log(typeof null) //'object'
+console.log(typeof foo) //'function'
+console.log(typeof undefined) //'undefined'
+console.log(typeof PersonClass) // "function"
 ```
 
 > 说明：
