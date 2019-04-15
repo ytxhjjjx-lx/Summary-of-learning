@@ -17,7 +17,7 @@ func() // Jackie
 ## 2.作为对象的方法调用
  **此时,this指向调用这个方法的对象;** 
 
-```
+```javascript
 var x = 'Property of Window'
 
 var obj = {}
@@ -30,7 +30,7 @@ obj.f() // Property of obj
 
 // 值得注意的情况
 var f = obj.f
-f() // Property of Window
+f() // Property of Window, 此处等同于window.f()
 ```
 
 ## 3.call、apply和bind 的显式绑定
@@ -116,36 +116,36 @@ p.log()                     // Jackie {para: "haha"}
  **JavaScript中超时调用的代码,都是在全局作用域中执行的,因此函数中this的值会指向window对象,在严格模式下也一样;     
  因为超时调用的代码,都会有一个隐式绑定:**      `setTimeout(f, time) == setTimeout(f.bind(window), time)` 
 
-```
+```javascript
 "use stric"
 var x = 'Property of Window'
 
-var obj = {}
-obj.x = 'Property of obj'
-obj.ff = function () {
-    setTimeout(
-        function () {
+var obj = {
+    x: 'Property of obj',
+    ff: function () {
+    	var x = 3;
+        setTimeout(function () {
+        	var x = 1;
             console.log(this.x)
         }, 100)
+    }
 }
-
 obj.ff()     // Property of Window
 
 // 可以这么解决问题
-obj.fff = function () {
+obj.ff = function () {
     var that = this
-    setTimeout(
-        function () {
-            console.log(that.x)
-        }, 100)
+    setTimeout(function () {
+        console.log(that.x)
+    }, 100)
 }
-obj.fff()     // Property of obj
+obj.ff()     // Property of obj
 ```
 
 ### 事件监听函数中的this
  **事件监听函数中的this,指向监听对象;** 
 
-```
+```javascript
 var one = document.getElementById('one')
 one.onclick = function () {
   console.log(this)
@@ -156,33 +156,32 @@ one.click() // <div id="one"></div>
 
 
 ### 箭头函数
- **箭头函数中this的指向,在函数定义时即绑定完毕,且后续无法更改;** 
+ **箭头函数中this的指向,在函数定义时即绑定完毕即与定义时所处环境中的this指向相同 ,且后续无法更改;** 
 
-```
+```javascript
 var obj = {
   x: 1
 }
-
 var f1 = () => {
   console.log(this)
 }
 f1.apply(obj) // Window
 
+
 var f2 = function () {
   var f3 = () => {
-    console.log(this)
+    console.log(this) //此处this指向与函数f2中this指向相同
   }
   return f3
 }
-
 var f4 = f2.apply(obj)
 f4() // Object {x: 1}
 ```
 
-```
+```javascript
 function foo() {
   setTimeout(() => {
-    console.log('id:', this.id);
+    console.log('id:', this.id); //此处this指向与函数f2中this指向相同
   }, 100);
 }
 

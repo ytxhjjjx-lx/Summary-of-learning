@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>箭头函数使用对数组进行多重排序</title>
+	<title>箭头函数使用对数组进行多重排序,使用arr.sort()方法</title>
 </head>
 <body>
 
@@ -12,25 +12,102 @@
 </body>
 
 <script>
-	
+
 	var arr = [
-		{age: 20, name: "c"},
-		{age: 20, name: "b"},
-		{age: 40, name: "a"},
-		{age: 10, name: "a"},
-		{age: 14, name: "d"}
+		{ name: 'Edward', value: 21 },
+		{ name: 'Sharpe', value: 37 },
+		{ name: 'And', value: 45 },
+		{ name: 'the', value: -12 },
+		{ name: 'magnetic', value: 30 },
+		{ name: 'Zeros', value: 37 }
 	];
-	/*arr.sort((a, b) => {
-		if (a.age === b.age) {
-			//localeCompare比较字符串的方法，考虑了默认的本地排序规则,ECMAscript 标准规定采用底层操作系统的排序规则。
-			return a.name.localeCompare(b.name)
-		} else {
-			return a.age - b.age
+	// sort by value
+	arr.sort(function (a, b) {
+		return (a.value - b.value)
+	});
+
+	// sort by name
+	arr.sort(function(a, b) {
+		var nameA = a.name.toUpperCase(); 
+		var nameB = b.name.toUpperCase();
+		if (nameA < nameB) {
+			return -1;
 		}
-	})*/
-	arr.sort((a, b) => (a.age - b.age) || a.name.localeCompare(b.name))
-	console.log(arr)
-	
+		if (nameA > nameB) {
+			return 1;
+		}
+		return 0;
+	});
+	//排列结果：
+{
+	name: "And"
+	value: 45
+}
+
+{
+	name: "Edward"
+	value: 21
+}
+
+{
+	name: "magnetic"
+	value: 30
+}
+
+{
+	name: "Sharpe"
+	value: 37
+}
+
+{
+	name: "the"
+	value: -12
+}
+
+{	
+	name: "Zeros"
+	value: 37
+}
+
+
+
+	//sort by value,name	
+	//localeCompare比较字符串的方法，考虑了默认的本地排序规则,ECMAscript 标准规定采用底层操作系统的排序规则。
+	arr.sort((a, b) => {
+		var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+		var nameB = b.name.toUpperCase();
+		return (a.value - b.value) || nameA.localeCompare(nameB)
+	})
+	//排列结果：
+{
+	name: "the"
+	value: -12
+}
+
+{
+	name: "Edward"
+	value: 21
+}
+
+{
+	name: "magnetic"
+	value: 30
+}
+
+{
+	name: "Sharpe"
+	value: 37
+}
+
+{	
+	name: "Zeros"
+	value: 37
+}
+
+{
+	name: "And"
+	value: 45
+}
 	
 </script>
 </html>

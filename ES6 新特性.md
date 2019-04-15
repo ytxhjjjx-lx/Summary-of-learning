@@ -175,8 +175,14 @@ function makeRequest(url, timeout = 2000, callback = function() {}) {
 > 在非严格模式下，arguments总是能反映出命名参数的变化。看下面的代码：
 
 ```javascript
-<script type="text/javascript">
     function foo(a, b) {
+    	console.log(arguments) 
+    // 0: 1
+    // 1: 2
+    // callee: ƒ fun(m, n)
+    // length: 2
+    // Symbol(Symbol.iterator): ƒ values(), 一个类数组的对象,具有Symbol.iterator属性，为可迭代类型
+    // __proto__: Object
         //非严格模式
         console.log(arguments[0] === a); //true
         console.log(arguments[1] === b); //true
@@ -186,7 +192,31 @@ function makeRequest(url, timeout = 2000, callback = function() {}) {
         console.log(arguments[1] === b); //true
     }
     foo(1, 2);
-</script>
+
+	//arguments是一个object对象，它不是数组，可以拿到函数的实参列表,不能对它使用shift、push、join等方法。上述举例时用的arguments[i]中的i只是作为arguments对象的属性，并不能理解为数组下标。
+
+JS函数的参数在function内可以用arguments对象来获取。
+参数的调用有两种方式：
+1、期望参数的使用。
+2、实际传递参数的使用。
+
+应用举例：
+function Test(a, b){
+    var i, s = "Test函数有";
+    var numargs = arguments.length; // 获取实际被传递参数的数值。
+    var expargs = Test.length; // 获取期望参数的数值，函数定义时的预期参数个数（有a和b 2个参数）。
+    s += (expargs + "个参数。");
+    for (i =0 ; i < numargs; i++){ // 获取参数内容。
+        s += " 第" + i + "个参数是：" + arguments[i] + "\n";
+    }
+    return(s); // 返回参数列表。
+}
+console.log(Test('param1','param2','param3'));
+
+//Test函数有2个参数。 
+//第0个参数是：param1
+//第1个参数是：param2
+//第2个参数是：param3
 ```
 
 > **在ES5的严格模式下**，arguments只反映参数的初始值，而不再反映命名参数的变化！
